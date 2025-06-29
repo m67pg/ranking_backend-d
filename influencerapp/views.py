@@ -6,6 +6,7 @@ from .models import Influencer
 from .serializers import InfluencerSerializer
 import tempfile, traceback, openpyxl
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 
 @api_view(['GET'])
 def get_all_influencers_by_region(request):
@@ -62,6 +63,7 @@ def get_influencers(request):
     except Exception as e:
         return Response({"error": "Failed to fetch influencers", "details": str(e)}, status=500)
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def upload_influencers(request):
