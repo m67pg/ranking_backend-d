@@ -134,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 cors_origins_str = env("CORS_ORIGINS", default=None)
 if cors_origins_str:
     CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
+    CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
 else:
     CORS_ALLOW_ALL_ORIGINS = True
 
