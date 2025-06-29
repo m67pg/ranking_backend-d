@@ -1,4 +1,3 @@
-#!/usr/bin/env python3.7
 """
 ASGI config for admin project.
 

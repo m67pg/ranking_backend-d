@@ -1,4 +1,3 @@
-#!/usr/bin/env python3.7
 from rest_framework import serializers
 from .models import Influencer
 

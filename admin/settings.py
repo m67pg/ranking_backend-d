@@ -1,4 +1,3 @@
-#!/usr/bin/env python3.7
 """
 Django settings for admin project.
 

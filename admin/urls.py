@@ -1,4 +1,3 @@
-#!/usr/bin/env python3.7
 """admin URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
