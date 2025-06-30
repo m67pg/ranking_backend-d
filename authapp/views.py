@@ -6,6 +6,7 @@ import json
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.middleware.csrf import get_token
 
 @csrf_exempt
 def login_user(request):
@@ -35,7 +36,8 @@ def logout_user(request):
 @ensure_csrf_cookie
 def check_login_status(request):
     if request.user.is_authenticated:
-        return Response({'isLoggedIn': True, 'username': request.user.username})
+        token = get_token(request)
+        return Response({'isLoggedIn': True, 'username': request.user.username, 'csrfToken': token})
     else:
         return Response({'isLoggedIn': False})
 
