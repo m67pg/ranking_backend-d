@@ -6,8 +6,6 @@ from .models import Influencer
 from .serializers import InfluencerSerializer
 import tempfile, traceback, openpyxl
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 @api_view(['GET'])
 def get_all_influencers_by_region(request):
@@ -25,7 +23,6 @@ def get_all_influencers_by_region(request):
     except Exception as e:
         return Response({"error": "Failed to fetch all influencers", "details": str(e)}, status=500)
 
-@ensure_csrf_cookie
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 def get_influencers(request):
@@ -65,8 +62,6 @@ def get_influencers(request):
     except Exception as e:
         return Response({"error": "Failed to fetch influencers", "details": str(e)}, status=500)
 
-@csrf_exempt
-@ensure_csrf_cookie
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def upload_influencers(request):

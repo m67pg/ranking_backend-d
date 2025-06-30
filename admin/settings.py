@@ -131,20 +131,12 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# cors_origins_str = env("CORS_ORIGINS", default=None)
-# if cors_origins_str:
-#     CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
-#     CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
-# else:
-#     CORS_ALLOW_ALL_ORIGINS = True
-
-CORS_ORIGINS = [
-    'https://ranking.cspm.fun',
-    'https://ranking-zeta.vercel.app',
-    'https://ranking-backend-d.onrender.com',
-]
-CORS_ALLOWED_ORIGINS = CORS_ORIGINS
-CSRF_TRUSTED_ORIGINS = CORS_ORIGINS
+cors_origins_str = env("CORS_ORIGINS", default=None)
+if cors_origins_str:
+    CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
+    CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
+else:
+    CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
 

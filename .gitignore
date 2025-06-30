@@ -1,4 +1,2 @@
 /venv
-.env.development
-.env.example
 *.pyc

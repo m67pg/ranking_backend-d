@@ -1,2 +1,1 @@
-buildCommand: bash build.sh
 startCommand: gunicorn admin.wsgi
