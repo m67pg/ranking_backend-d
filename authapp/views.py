@@ -5,10 +5,10 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from django.middleware.csrf import get_token
 
 @csrf_exempt
+@ensure_csrf_cookie
 def login_user(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -17,7 +17,8 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return JsonResponse({'message': 'ログイン成功', 'username': user.username}, status=200)
+            token = get_token(request)
+            return JsonResponse({'message': 'ログイン成功', 'username': user.username, 'csrfToken': token}, status=200)
         else:
             return JsonResponse({'error': '無効なユーザー名またはパスワードです。'}, status=401)
 
@@ -31,7 +32,7 @@ def logout_user(request):
 def check_login_status(request):
     if request.user.is_authenticated:
         token = get_token(request)
-        return Response({'isLoggedIn': True, 'username': request.user.username, 'csrfToken': token})
+        return JsonResponse({'isLoggedIn': True, 'username': request.user.username, 'csrfToken': token})
     else:
-        return Response({'isLoggedIn': False})
+        return JsonResponse({'isLoggedIn': False})
 
