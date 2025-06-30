@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.views.decorators.csrf import ensure_csrf_cookie
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 @csrf_exempt
 def login_user(request):
@@ -23,9 +25,17 @@ def logout_user(request):
     logout(request)
     return JsonResponse({'message': 'ログアウトしました。'}, status=200)
 
+# def check_login_status(request):
+#     if request.user.is_authenticated:
+#         return JsonResponse({'isLoggedIn': True, 'username': request.user.username})
+#     else:
+#         return JsonResponse({'isLoggedIn': False})
+
+@api_view(['GET'])
 @ensure_csrf_cookie
 def check_login_status(request):
     if request.user.is_authenticated:
-        return JsonResponse({'isLoggedIn': True, 'username': request.user.username})
+        return Response({'isLoggedIn': True, 'username': request.user.username})
     else:
-        return JsonResponse({'isLoggedIn': False})
+        return Response({'isLoggedIn': False})
+
