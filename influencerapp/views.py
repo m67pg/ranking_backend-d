@@ -66,6 +66,7 @@ def get_influencers(request):
         return Response({"error": "Failed to fetch influencers", "details": str(e)}, status=500)
 
 @csrf_exempt
+@ensure_csrf_cookie
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def upload_influencers(request):
